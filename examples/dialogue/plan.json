@@ -1,0 +1,207 @@
+{
+  "title": "白骨精现身",
+  "model": "speech-2.8-hd",
+  "voices": {
+    "旁白": "male-qn-jingying",
+    "白骨精": "wumei_yujie"
+  },
+  "clips": [
+    {
+      "id": "narration",
+      "role": "旁白",
+      "text": "夜色渐深，白骨精现身。",
+      "emotion": "calm",
+      "speed": 0.95,
+      "pause_after_ms": 500,
+      "readings": [
+        {
+          "start": 1,
+          "text": "色",
+          "pinyin": [
+            "se4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 2,
+          "text": "渐",
+          "pinyin": [
+            "jian4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 5,
+          "text": "白",
+          "pinyin": [
+            "bai2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 6,
+          "text": "骨",
+          "pinyin": [
+            "gu3"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 7,
+          "text": "精",
+          "pinyin": [
+            "jing1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 9,
+          "text": "身",
+          "pinyin": [
+            "shen1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        }
+      ]
+    },
+    {
+      "id": "bgj-laugh",
+      "role": "白骨精",
+      "text": "听说吃上唐僧一块肉，就能长生不老。",
+      "takes": 2,
+      "selected_take": 2,
+      "note": "先笑一声，再贪婪得意地低声说；2026-11-09 用户试听选定 take 2",
+      "marks": [
+        {
+          "at": 0,
+          "tag": "laughs",
+          "note": "开口前先笑；笑声由服务端语气词生成，原文不写嘻嘻嘻"
+        }
+      ],
+      "readings": [
+        {
+          "start": 0,
+          "text": "听",
+          "pinyin": [
+            "ting1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 1,
+          "text": "说",
+          "pinyin": [
+            "shuo1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 2,
+          "text": "吃",
+          "pinyin": [
+            "chi1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 3,
+          "text": "上",
+          "pinyin": [
+            "shang4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 5,
+          "text": "僧",
+          "pinyin": [
+            "seng1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 6,
+          "text": "一",
+          "pinyin": [
+            "yi1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "“一块”变调由模型自然处理"
+        },
+        {
+          "start": 7,
+          "text": "块",
+          "pinyin": [
+            "kuai4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 8,
+          "text": "肉",
+          "pinyin": [
+            "rou4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 11,
+          "text": "能",
+          "pinyin": [
+            "neng2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 12,
+          "text": "长",
+          "pinyin": [
+            "chang2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "长生：长久义"
+        },
+        {
+          "start": 14,
+          "text": "不",
+          "pinyin": [
+            "bu4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        }
+      ]
+    }
+  ]
+}

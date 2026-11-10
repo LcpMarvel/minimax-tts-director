@@ -1,0 +1,117 @@
+{
+  "title": "同字异读：华老栓",
+  "model": "speech-2.8-hd",
+  "voices": {
+    "旁白": "male-qn-jingying"
+  },
+  "clips": [
+    {
+      "id": "001",
+      "role": "旁白",
+      "text": "华老栓忽然坐起身，披上那件华丽的旧袍子。",
+      "readings": [
+        {
+          "start": 0,
+          "text": "华",
+          "pinyin": [
+            "hua4"
+          ],
+          "status": "reviewed",
+          "delivery": "inline",
+          "note": "姓氏读 huà；同段另有“华丽”读 huá，发音字典按词全局生效分不开，只能按位置行内替换"
+        },
+        {
+          "start": 2,
+          "text": "栓",
+          "pinyin": [
+            "shuan1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 7,
+          "text": "身",
+          "pinyin": [
+            "shen1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 10,
+          "text": "上",
+          "pinyin": [
+            "shang4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 11,
+          "text": "那",
+          "pinyin": [
+            "na4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 12,
+          "text": "件",
+          "pinyin": [
+            "jian4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 13,
+          "text": "华丽",
+          "pinyin": [
+            "hua2",
+            "li4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "形容衣服，常用读音"
+        },
+        {
+          "start": 15,
+          "text": "的",
+          "pinyin": [
+            "de5"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "结构助词轻声"
+        },
+        {
+          "start": 17,
+          "text": "袍",
+          "pinyin": [
+            "pao2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 18,
+          "text": "子",
+          "pinyin": [
+            "zi5"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "词尾轻声"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+[
+   {
+      "text": "(hua4)老栓说：",
+      "pronounce_text": "ㄏㄨㄚˋ老栓说：",
+      "time_begin": 0.0,
+      "time_end": 747.5283446712018,
+      "text_begin": 0,
+      "text_end": 10,
+      "pronounce_text_begin": 0,
+      "pronounce_text_end": 8,
+      "is_final_segment": true,
+      "timestamped_words": [
+         {
+            "word": "(hua4)",
+            "word_begin": 0,
+            "word_end": 6,
+            "pronounce_word": "ㄏ",
+            "pronounce_word_begin": 0,
+            "pronounce_word_end": 1,
+            "time_begin": 42.666666666666664,
+            "time_end": 85.33333333333333
+         },
+         {
+            "word": "(hua4)",
+            "word_begin": 0,
+            "word_end": 6,
+            "pronounce_word": "ㄨ",
+            "pronounce_word_begin": 1,
+            "pronounce_word_end": 2,
+            "time_begin": 85.33333333333333,
+            "time_end": 128.0
+         },
+         {
+            "word": "(hua4)",
+            "word_begin": 0,
+            "word_end": 6,
+            "pronounce_word": "ㄚ",
+            "pronounce_word_begin": 2,
+            "pronounce_word_end": 3,
+            "time_begin": 128.0,
+            "time_end": 170.66666666666666
+         },
+         {
+            "word": "(hua4)",
+            "word_begin": 0,
+            "word_end": 6,
+            "pronounce_word": "ˋ",
+            "pronounce_word_begin": 3,
+            "pronounce_word_end": 4,
+            "time_begin": 170.66666666666666,
+            "time_end": 213.33333333333331
+         },
+         {
+            "word": "老",
+            "word_begin": 6,
+            "word_end": 7,
+            "pronounce_word": "老",
+            "pronounce_word_begin": 4,
+            "pronounce_word_end": 5,
+            "time_begin": 213.33333333333331,
+            "time_end": 256.0
+         },
+         {
+            "word": "栓",
+            "word_begin": 7,
+            "word_end": 8,
+            "pronounce_word": "栓",
+            "pronounce_word_begin": 5,
+            "pronounce_word_end": 6,
+            "time_begin": 256.0,
+            "time_end": 384.0
+         },
+         {
+            "word": "说",
+            "word_begin": 8,
+            "word_end": 9,
+            "pronounce_word": "说",
+            "pronounce_word_begin": 6,
+            "pronounce_word_end": 7,
+            "time_begin": 384.0,
+            "time_end": 554.6666666666666
+         },
+         {
+            "word": "：",
+            "word_begin": 9,
+            "word_end": 10,
+            "pronounce_word": "：",
+            "pronounce_word_begin": 7,
+            "pronounce_word_end": 8,
+            "time_begin": 554.6666666666666,
+            "time_end": 725.3333333333333
+         }
+      ]
+   },
+   {
+      "text": "(laughs)这件华丽的衣服，用 API 处理。",
+      "pronounce_text": "(laughs)这件华丽的衣服，用API处理。",
+      "time_begin": 1347.528344671202,
+      "time_end": 5043.990929705215,
+      "text_begin": 17,
+      "text_end": 42,
+      "pronounce_text_begin": 8,
+      "pronounce_text_end": 31,
+      "is_final_segment": true,
+      "timestamped_words": [
+         {
+            "word": "(laughs)",
+            "word_begin": 17,
+            "word_end": 25,
+            "pronounce_word": "(laughs)",
+            "pronounce_word_begin": 8,
+            "pronounce_word_end": 16,
+            "time_begin": 1390.1950113378687,
+            "time_end": 1560.8616780045352
+         },
+         {
+            "word": "这",
+            "word_begin": 25,
+            "word_end": 26,
+            "pronounce_word": "这",
+            "pronounce_word_begin": 16,
+            "pronounce_word_end": 17,
+            "time_begin": 1560.8616780045352,
+            "time_end": 2670.195011337869
+         },
+         {
+            "word": "件",
+            "word_begin": 26,
+            "word_end": 27,
+            "pronounce_word": "件",
+            "pronounce_word_begin": 17,
+            "pronounce_word_end": 18,
+            "time_begin": 2670.195011337869,
+            "time_end": 2798.1950113378684
+         },
+         {
+            "word": "华",
+            "word_begin": 27,
+            "word_end": 28,
+            "pronounce_word": "华",
+            "pronounce_word_begin": 18,
+            "pronounce_word_end": 19,
+            "time_begin": 2798.1950113378684,
+            "time_end": 2926.195011337869
+         },
+         {
+            "word": "丽",
+            "word_begin": 28,
+            "word_end": 29,
+            "pronounce_word": "丽",
+            "pronounce_word_begin": 19,
+            "pronounce_word_end": 20,
+            "time_begin": 2926.195011337869,
+            "time_end": 3096.861678004535
+         },
+         {
+            "word": "的",
+            "word_begin": 29,
+            "word_end": 30,
+            "pronounce_word": "的",
+            "pronounce_word_begin": 20,
+            "pronounce_word_end": 21,
+            "time_begin": 3096.861678004535,
+            "time_end": 3139.528344671202
+         },
+         {
+            "word": "衣",
+            "word_begin": 30,
+            "word_end": 31,
+            "pronounce_word": "衣",
+            "pronounce_word_begin": 21,
+            "pronounce_word_end": 22,
+            "time_begin": 3139.528344671202,
+            "time_end": 3310.1950113378684
+         },
+         {
+            "word": "服",
+            "word_begin": 31,
+            "word_end": 32,
+            "pronounce_word": "服",
+            "pronounce_word_begin": 22,
+            "pronounce_word_end": 23,
+            "time_begin": 3310.1950113378684,
+            "time_end": 3438.1950113378684
+         },
+         {
+            "word": "，",
+            "word_begin": 32,
+            "word_end": 33,
+            "pronounce_word": "，",
+            "pronounce_word_begin": 23,
+            "pronounce_word_end": 24,
+            "time_begin": 3438.1950113378684,
+            "time_end": 3480.8616780045354
+         },
+         {
+            "word": "用",
+            "word_begin": 33,
+            "word_end": 34,
+            "pronounce_word": "用",
+            "pronounce_word_begin": 24,
+            "pronounce_word_end": 25,
+            "time_begin": 3480.8616780045354,
+            "time_end": 3864.861678004535
+         },
+         {
+            "word": "A",
+            "word_begin": 35,
+            "word_end": 36,
+            "pronounce_word": "A",
+            "pronounce_word_begin": 25,
+            "pronounce_word_end": 26,
+            "time_begin": 3864.861678004535,
+            "time_end": 4035.5283446712015
+         },
+         {
+            "word": "P",
+            "word_begin": 36,
+            "word_end": 37,
+            "pronounce_word": "P",
+            "pronounce_word_begin": 26,
+            "pronounce_word_end": 27,
+            "time_begin": 4035.5283446712015,
+            "time_end": 4206.195011337868
+         },
+         {
+            "word": "I",
+            "word_begin": 37,
+            "word_end": 38,
+            "pronounce_word": "I",
+            "pronounce_word_begin": 27,
+            "pronounce_word_end": 28,
+            "time_begin": 4206.195011337868,
+            "time_end": 4291.528344671202
+         },
+         {
+            "word": "处",
+            "word_begin": 39,
+            "word_end": 40,
+            "pronounce_word": "处",
+            "pronounce_word_begin": 28,
+            "pronounce_word_end": 29,
+            "time_begin": 4291.528344671202,
+            "time_end": 4547.528344671202
+         },
+         {
+            "word": "理",
+            "word_begin": 40,
+            "word_end": 41,
+            "pronounce_word": "理",
+            "pronounce_word_begin": 29,
+            "pronounce_word_end": 30,
+            "time_begin": 4547.528344671202,
+            "time_end": 4760.861678004535
+         },
+         {
+            "word": "。",
+            "word_begin": 41,
+            "word_end": 42,
+            "pronounce_word": "。",
+            "pronounce_word_begin": 30,
+            "pronounce_word_end": 31,
+            "time_begin": 4760.861678004535,
+            "time_end": 4888.861678004535
+         }
+      ]
+   }
+]

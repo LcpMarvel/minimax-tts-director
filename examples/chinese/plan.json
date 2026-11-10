@@ -1,0 +1,160 @@
+{
+  "title": "中文多音字",
+  "model": "speech-2.8-hd",
+  "voices": {
+    "旁白": "male-qn-jingying"
+  },
+  "clips": [
+    {
+      "id": "001",
+      "role": "旁白",
+      "text": "银行行长走过长街。\n",
+      "pause_after_ms": 300,
+      "readings": [
+        {
+          "start": 0,
+          "text": "银行",
+          "pinyin": [
+            "yin2",
+            "hang2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "金融机构；常用词，模型通常读对"
+        },
+        {
+          "start": 2,
+          "text": "行长",
+          "pinyin": [
+            "hang2",
+            "zhang3"
+          ],
+          "status": "reviewed",
+          "delivery": "dictionary",
+          "note": "银行负责人；“长”读 zhang3，与后文“长街”不同"
+        },
+        {
+          "start": 5,
+          "text": "过",
+          "pinyin": [
+            "guo4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 6,
+          "text": "长街",
+          "pinyin": [
+            "chang2",
+            "jie1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "长度义"
+        }
+      ]
+    },
+    {
+      "id": "002",
+      "role": "旁白",
+      "text": "重庆的音乐令人快乐。\n",
+      "pause_after_ms": 300,
+      "readings": [
+        {
+          "start": 0,
+          "text": "重庆",
+          "pinyin": [
+            "chong2",
+            "qing4"
+          ],
+          "status": "reviewed",
+          "delivery": "dictionary",
+          "note": "地名，重读 chong2"
+        },
+        {
+          "start": 2,
+          "text": "的",
+          "pinyin": [
+            "de5"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "结构助词轻声，保留自然语流"
+        },
+        {
+          "start": 3,
+          "text": "音乐",
+          "pinyin": [
+            "yin1",
+            "yue4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "乐读 yue4"
+        },
+        {
+          "start": 5,
+          "text": "令",
+          "pinyin": [
+            "ling4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 7,
+          "text": "快乐",
+          "pinyin": [
+            "kuai4",
+            "le4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "乐读 le4"
+        }
+      ]
+    },
+    {
+      "id": "003",
+      "role": "旁白",
+      "text": "单先生还要还款。\n",
+      "readings": [
+        {
+          "start": 0,
+          "text": "单",
+          "pinyin": [
+            "shan4"
+          ],
+          "status": "reviewed",
+          "delivery": "inline",
+          "note": "姓氏读 shàn；只改这个位置"
+        },
+        {
+          "start": 3,
+          "text": "还要",
+          "pinyin": [
+            "hai2",
+            "yao4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "副词 hái"
+        },
+        {
+          "start": 5,
+          "text": "还款",
+          "pinyin": [
+            "huan2",
+            "kuan3"
+          ],
+          "status": "reviewed",
+          "delivery": "dictionary",
+          "note": "归还义 huán；与同段“还要”不同读，按词组区分"
+        }
+      ]
+    }
+  ]
+}

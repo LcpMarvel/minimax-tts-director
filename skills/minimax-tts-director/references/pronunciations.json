@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "words": {
+    "Anthropic": "ænˈθrɒpɪk",
+    "Claude": "klɔːd",
+    "Haiku": "ˈhaɪkuː",
+    "DeepSeek": null,
+    "OpenAI": null,
+    "OpenRouter": null,
+    "token": null,
+    "cache": null
+  },
+  "acronyms": {
+    "KV": "K V",
+    "API": "A P I",
+    "MLA": "M L A",
+    "GPU": "G P U",
+    "IPO": "I P O",
+    "S-1": "S one"
+  },
+  "models": ["5.5", "V4.1"],
+  "decimal_point": "点"
+}

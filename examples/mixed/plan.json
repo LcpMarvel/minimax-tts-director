@@ -1,0 +1,122 @@
+{
+  "title": "中英混读",
+  "model": "speech-2.8-hd",
+  "voices": {
+    "旁白": "male-qn-jingying"
+  },
+  "pronunciation_table": {
+    "version": 1,
+    "words": {
+      "Anthropic": "ænˈθrɒpɪk",
+      "Claude": "klɔːd",
+      "Haiku": "ˈhaɪkuː",
+      "DeepSeek": null,
+      "OpenAI": null,
+      "OpenRouter": null,
+      "token": null,
+      "cache": null
+    },
+    "acronyms": {
+      "KV": "K V",
+      "API": "A P I",
+      "MLA": "M L A",
+      "GPU": "G P U",
+      "IPO": "I P O",
+      "S-1": "S one"
+    },
+    "models": [
+      "5.5",
+      "V4.1"
+    ],
+    "decimal_point": "点"
+  },
+  "clips": [
+    {
+      "id": "001",
+      "role": "旁白",
+      "text": "Anthropic 发布 Claude Haiku 5.5，输入每百万 token 零点一美元，比 DeepSeek V4.1-Flash 还便宜。",
+      "readings": [
+        {
+          "start": 10,
+          "text": "发",
+          "pinyin": [
+            "fa1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 33,
+          "text": "百",
+          "pinyin": [
+            "bai3"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 34,
+          "text": "万",
+          "pinyin": [
+            "wan4"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 42,
+          "text": "零",
+          "pinyin": [
+            "ling2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 44,
+          "text": "一",
+          "pinyin": [
+            "yi1"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 48,
+          "text": "比",
+          "pinyin": [
+            "bi3"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 70,
+          "text": "还",
+          "pinyin": [
+            "hai2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        },
+        {
+          "start": 71,
+          "text": "便",
+          "pinyin": [
+            "pian2"
+          ],
+          "status": "reviewed",
+          "delivery": "native",
+          "note": "语境常用读音"
+        }
+      ]
+    }
+  ]
+}

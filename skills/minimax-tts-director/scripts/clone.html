@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>复刻你的声音</title>
+<link rel="icon" href="data:,">
+<style>
+:root {
+  --bg: #f6f5f2; --card: #ffffff; --ink: #1d1d1b; --muted: #6b6a66; --line: #e3e1dc;
+  --accent: #c2410c; --accent-ink: #ffffff; --ok: #15803d; --warn: #b45309; --bad: #b91c1c; --soft: #f1efea;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #161615; --card: #1f1f1d; --ink: #ecebe7; --muted: #a09e98; --line: #34332f;
+          --accent: #f97316; --accent-ink: #1a1a19; --ok: #4ade80; --warn: #fbbf24; --bad: #f87171; --soft: #292826; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 15px/1.65 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+main { max-width: 680px; margin: 0 auto; padding: 32px 16px 80px; }
+h1 { font-size: 26px; margin: 0 0 6px; }
+h2 { font-size: 18px; margin: 0 0 4px; }
+.lead { color: var(--muted); margin: 0 0 22px; }
+.steps { display: flex; gap: 8px; margin: 0 0 22px; flex-wrap: wrap; }
+.steps span { font-size: 13px; padding: 3px 12px; border-radius: 99px; background: var(--soft); color: var(--muted); }
+.steps span.on { background: var(--ink); color: var(--bg); }
+.steps span.done { color: var(--ok); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin-bottom: 16px; }
+.card.locked { opacity: .5; pointer-events: none; }
+.sub { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+.hint { color: var(--muted); font-size: 13px; }
+label { display: block; font-weight: 600; font-size: 14px; margin: 16px 0 6px; }
+label.inline { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; margin: 10px 0; }
+label.inline input { margin-top: 5px; }
+input[type=text], textarea, select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px;
+  background: var(--card); color: var(--ink); font: inherit; }
+textarea { min-height: 70px; resize: vertical; }
+input:focus, textarea:focus, select:focus { outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); border-color: var(--accent); }
+button { font: inherit; border-radius: 9px; border: 1px solid var(--line); background: var(--soft); color: var(--ink);
+         padding: 9px 16px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--muted); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+button.big { width: 100%; padding: 13px; font-size: 16px; }
+button.link { background: none; border: 0; padding: 4px 0; color: var(--muted); text-decoration: underline; }
+button.danger { color: var(--bad); }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; margin-bottom: 14px; }
+.tabs button { border: 0; border-radius: 0; background: transparent; }
+.tabs button[aria-selected=true] { background: var(--ink); color: var(--bg); }
+.script { background: var(--soft); border-radius: 9px; padding: 14px 16px; font-size: 16px; line-height: 2; margin: 6px 0 8px; }
+.cue { font-size: 12px; color: var(--accent); border: 1px dashed currentColor; border-radius: 5px; padding: 0 5px; margin: 0 3px; white-space: nowrap; }
+.script-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.meter { flex: 1; min-width: 120px; height: 8px; background: var(--soft); border-radius: 4px; overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .08s; }
+.time { font-variant-numeric: tabular-nums; min-width: 54px; }
+audio { width: 100%; margin-top: 12px; height: 40px; }
+.status { font-size: 14px; margin-top: 10px; min-height: 1.4em; }
+.ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+.what { background: var(--soft); border-radius: 10px; padding: 14px 16px; font-size: 14px; margin: 18px 0 6px; }
+.what ol { margin: 6px 0 0; padding-left: 20px; }
+.what li { margin: 3px 0; }
+.what b { font-variant-numeric: tabular-nums; }
+details { margin-top: 18px; }
+details summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+.result audio { height: 48px; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+@media (max-width: 520px) { .choices { grid-template-columns: 1fr; } }
+.choice { text-align: left; padding: 14px; }
+.choice strong { display: block; font-size: 15px; }
+.choice span { font-size: 13px; color: var(--muted); font-weight: 400; }
+.choice.primary span { color: inherit; opacity: .85; }
+.voice { border-top: 1px solid var(--line); padding: 12px 0; }
+.voice:first-child { border-top: 0; }
+.voice code { font-size: 13px; background: var(--soft); padding: 2px 6px; border-radius: 5px; }
+.badge { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid currentColor; }
+.empty { color: var(--muted); font-size: 14px; }
+.done { text-align: center; padding: 60px 16px; }
+footer { margin-top: 26px; }
+</style>
+</head>
+<body>
+<main id="app">
+  <h1>复刻你的声音</h1>
+  <p class="lead">录一段话，生成一个和你声音很像的音色，以后配音可以直接用它。</p>
+  <div class="steps"><span id="st1" class="on">1 录音</span><span id="st2">2 生成并试听</span><span id="st3">3 决定用不用</span></div>
+
+  <!-- 第 1 步 -->
+  <section class="card" id="card1">
+    <h2>第 1 步：录一段你的声音</h2>
+    <p class="sub">这一步只在你的电脑上进行，不花钱。至少 10 秒，建议说 30 秒到 2 分钟。</p>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="record">现场录音</button>
+      <button role="tab" aria-selected="false" data-tab="upload">上传已有录音</button>
+    </div>
+    <div data-panel="record">
+      <div class="hint">像平时录口播一样，对着镜头跟观众聊天，不用字正腔圆。<span class="cue">笑</span>这样的框是动作提示：照着做，不用念出来。口误、卡壳了也别停，接着说，真实口播本来就有这些。你也可以完全不看稿，随便聊。</div>
+      <div class="script" id="script"></div>
+      <div class="script-bar"><span class="hint" id="script-info"></span><button id="script-next">换一段</button></div>
+      <div class="row">
+        <button id="src-rec" class="primary">开始录音</button>
+        <span class="time" id="src-time">0:00</span>
+        <div class="meter"><i id="src-meter"></i></div>
+      </div>
+    </div>
+    <div data-panel="upload" hidden>
+      <input type="file" id="src-file" accept=".mp3,.m4a,.wav,audio/mpeg,audio/mp4,audio/wav">
+      <div class="hint" style="margin-top:6px">mp3、m4a 或 wav，不超过 20MB，只有你一个人说话，没有背景音乐。</div>
+    </div>
+    <audio id="src-audio" controls hidden></audio>
+    <div class="status" id="src-status"></div>
+  </section>
+
+  <!-- 第 2 步 -->
+  <section class="card locked" id="card2">
+    <h2>第 2 步：生成音色并试听</h2>
+    <p class="sub">用你的录音生成音色，再用新音色读一遍下面这句话给你听。</p>
+    <label for="preview">试听用的句子（可以改）</label>
+    <textarea id="preview" style="min-height:96px">哈喽大家好，欢迎回来！(laughs) 今天想跟大家聊聊，我最近养成的一个小习惯。嗯……说起来其实挺简单的，<#0.4#>但是坚持下来以后，真的，改变了我很多。你们猜猜是什么？(chuckle) 好，咱们接着往下说。</textarea>
+    <div class="hint" style="margin-top:6px">(laughs) 笑出声、(chuckle) 轻笑、&lt;#0.4#&gt; 停顿 0.4 秒都是 MiniMax 的演绎标签，不会被念出来，只有 speech-2.8 支持。其他可用标签：(sighs) 叹气、(breath) 换气、(emm) 嗯、(gasps) 倒吸气。如果试听里把标签直接念了出来，删掉它们再试。</div>
+    <label for="label">给这个声音起个名字</label>
+    <input type="text" id="label" maxlength="50" value="我的声音">
+
+    <div class="what" id="what"></div>
+    <label class="inline"><input type="checkbox" id="consent"> <span>这是我本人的声音，或者我已经得到声音主人的同意。我不会用它冒充别人。</span></label>
+    <button id="clone" class="primary big" disabled>生成音色并试听</button>
+    <div class="status" id="clone-status"></div>
+
+    <details>
+      <summary>高级选项（一般不用改）</summary>
+      <label for="voice-id">音色 ID</label>
+      <input type="text" id="voice-id" autocomplete="off" spellcheck="false">
+      <div class="hint" id="voice-id-hint"></div>
+      <label for="model">试听用的模型</label>
+      <select id="model"></select>
+      <label for="boost">语种增强</label>
+      <select id="boost"></select>
+      <div class="hint">说普通话不用选；粤语选 Chinese,Yue。</div>
+      <label class="inline"><input type="checkbox" id="noise"> <span>降噪（录音有明显底噪时打开）</span></label>
+      <label class="inline"><input type="checkbox" id="volume"> <span>音量归一化</span></label>
+      <label>补充一段短录音（可选，小于 8 秒）</label>
+      <div class="hint">再给一小段你说的话，并逐字写出内容，能让说话方式更像。不加也可以。</div>
+      <div class="row" style="margin-top:8px">
+        <button id="pr-rec">录一段</button>
+        <span class="time" id="pr-time">0:00</span>
+        <div class="meter"><i id="pr-meter"></i></div>
+      </div>
+      <input type="file" id="pr-file" accept=".mp3,.m4a,.wav,audio/mpeg,audio/mp4,audio/wav" style="margin-top:8px">
+      <audio id="pr-audio" controls hidden></audio>
+      <div class="status" id="pr-status"></div>
+      <label for="pr-text">这段短录音说的内容（逐字，以标点结尾）</label>
+      <input type="text" id="pr-text" placeholder="例如：今天的天气不错。">
+      <div style="margin-top:8px"><button id="pr-clear">不用补充录音</button></div>
+    </details>
+  </section>
+
+  <!-- 第 3 步 -->
+  <section class="card result" id="card3" hidden>
+    <h2>第 3 步：听听像不像</h2>
+    <p class="sub" id="result-sub"></p>
+    <audio id="demo-audio" controls></audio>
+    <div class="status" id="result-status"></div>
+    <div class="choices">
+      <button class="choice primary" id="keep"><strong>满意，就用它</strong><span>回到对话里，下次配音直接用。第一次正式配音时扣 9.9 元音色费。</span></button>
+      <button class="choice" id="again"><strong>不满意，重录一版</strong><span>这个音色放着不管，7 天后自动删除，不会再扣钱。</span></button>
+    </div>
+  </section>
+
+  <footer>
+    <details id="library-box">
+      <summary id="library-title">已复刻的音色</summary>
+      <div class="hint" style="margin:8px 0">音色库文件：<span id="library"></span></div>
+      <div id="voices"></div>
+      <div style="margin-top:12px"><button id="account">查询账号里正式用过的复刻音色</button></div>
+      <div id="account-list" style="margin-top:10px"></div>
+    </details>
+    <div style="margin-top:12px"><button class="link" id="finish">不复刻了，结束并返回对话</button></div>
+  </footer>
+</main>
+
+<script>
+const token = new URLSearchParams(location.search).get("token") || "";
+const $ = (id) => document.getElementById(id);
+const VOICE_ID = /^[A-Za-z][A-Za-z0-9_-]{6,254}[A-Za-z0-9]$/;
+const HAN = /[㐀-䶿一-鿿豈-﫿\u{20000}-\u{323af}]/u;
+let settings = null, state = { voices: [], cloned: [] }, busy = false;
+const audio = { source: null, prompt: null };   // {id, seconds, ext}
+
+async function api(path, options = {}) {
+  const response = await fetch(path, { ...options, headers: { "X-Clone-Token": token, ...(options.headers || {}) } });
+  const data = await response.json();
+  if (!response.ok) throw Object.assign(new Error(data.error || response.statusText), data);
+  return data;
+}
+function say(el, text, kind = "") { el.textContent = text; el.className = "status " + kind; }
+function fmt(s) { s = Math.floor(s); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
+function escape(text) { const d = document.createElement("div"); d.textContent = text ?? ""; return d.innerHTML; }
+function audioUrl(path) { return `/api/audio?token=${encodeURIComponent(token)}&path=${encodeURIComponent(path)}`; }
+function newVoiceId() {
+  const d = new Date(), pad = (n) => String(n).padStart(2, "0");
+  const rand = Math.random().toString(36).slice(2, 6);
+  return `Voice${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}${rand}`;
+}
+const SCRIPTS = [
+  ["知识口播", "哈喽大家好，欢迎回来！[笑] 今天咱们聊一个特别有意思的话题，就是——为什么我们总觉得时间不够用？嗯……说实话，这个问题我自己也困扰了很久。[停一下] 你看啊，每天早上一睁眼，脑子里就已经塞满了待办，对吧？回消息、开会、改方案……一转眼，天就黑了。[轻轻叹气] 后来我试了一个小方法，效果还挺好的，今天就分享给大家。其实特别简单，就是每天只定三件最重要的事。[加重语气] 注意啊，是三件，不是十件！[笑] 我刚开始也觉得，三件是不是太少了？结果坚持了两个礼拜，发现做完的事情反而更多了。[停一下] 好，那这三件事具体怎么挑呢？咱们接着往下说。"],
+  ["生活 vlog", "哎，你们看，今天天气是真的好！[笑] 我们一大早就出门了，本来想着去海边吹吹风，结果……[停一下] 结果路上堵了快一个小时。[无奈地笑] 不过没关系，到了以后一看，哇，值了！风有点大，浪也挺高的，你们听，[停一下] 是不是还能听到海浪的声音？嗯，然后中午呢，我们在小镇上找了家面馆，老板特别热情，非要给我们多加一个蛋。[笑出声] 那碗面啊，我跟你们说，汤头是真的鲜，我到现在都还惦记着。好啦，今天就先到这儿，下次再带你们去别的地方逛逛，拜拜！"],
+  ["好物分享", "好，今天给大家看一个我最近用了快一个月的小东西。[停一下] 先说结论啊，我觉得挺值的。嗯……为什么这么说呢？第一，它真的很轻，放包里基本感觉不到。第二，续航比我想象中好太多了，[笑] 我上周出差三天，愣是一次都没充电。当然啦，它也有缺点，我不想光说好话。[语气放慢] 比如说，按键稍微有点硬，刚开始用的时候不太习惯。不过用了几天之后，也就还好。[停一下] 所以如果你也在纠结要不要入手，我的建议是——先想清楚自己最在意的是什么。好，以上就是我的真实感受，有问题评论区见！"],
+];
+let scriptIndex = 0;
+function showScript() {
+  const [name, text] = SCRIPTS[scriptIndex];
+  $("script").innerHTML = text.split(/(\[[^\]]+\])/).map((part) =>
+    part.startsWith("[") ? `<span class="cue">${escape(part.slice(1, -1))}</span>` : escape(part)).join("");
+  const chars = text.replace(/\[[^\]]+\]/g, "").length;
+  $("script-info").textContent = `${scriptIndex + 1}/${SCRIPTS.length} · ${name} · 约 ${Math.round(chars / 4.5 / 10) * 10} 秒`;
+}
+function step(n) {
+  [1, 2, 3].forEach((i) => $("st" + i).className = i < n ? "done" : i === n ? "on" : "");
+}
+
+// 录音 → 单声道 24kHz 16-bit WAV（5 分钟约 14MB）
+async function toWav(blob) {
+  const ctx = new AudioContext();
+  const decoded = await ctx.decodeAudioData(await blob.arrayBuffer());
+  await ctx.close();
+  const rate = 24000, frames = Math.ceil(decoded.duration * rate);
+  const offline = new OfflineAudioContext(1, frames, rate);
+  const node = offline.createBufferSource();
+  node.buffer = decoded; node.connect(offline.destination); node.start();
+  const samples = (await offline.startRendering()).getChannelData(0);
+  const view = new DataView(new ArrayBuffer(44 + samples.length * 2));
+  const text = (o, s) => [...s].forEach((c, i) => view.setUint8(o + i, c.charCodeAt(0)));
+  text(0, "RIFF"); view.setUint32(4, 36 + samples.length * 2, true); text(8, "WAVE"); text(12, "fmt ");
+  view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+  view.setUint32(24, rate, true); view.setUint32(28, rate * 2, true); view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true); text(36, "data"); view.setUint32(40, samples.length * 2, true);
+  samples.forEach((v, i) => view.setInt16(44 + i * 2, Math.max(-1, Math.min(1, v)) * 0x7fff, true));
+  return { blob: new Blob([view], { type: "audio/wav" }), seconds: decoded.duration };
+}
+async function duration(blob) {
+  const ctx = new AudioContext();
+  try { return (await ctx.decodeAudioData(await blob.arrayBuffer())).duration; }
+  finally { await ctx.close(); }
+}
+
+function checkSeconds(kind, seconds) {
+  if (kind === "source" && seconds < settings.source_seconds[0])
+    throw new Error(`只录了 ${seconds.toFixed(1)} 秒，至少要 10 秒，请再录长一点`);
+  if (kind === "source" && seconds > settings.source_seconds[1])
+    throw new Error(`录音 ${fmt(seconds)}，最长 5 分钟，请截短一些`);
+  if (kind === "prompt" && seconds >= settings.prompt_seconds)
+    throw new Error(`补充录音 ${seconds.toFixed(1)} 秒，要小于 8 秒`);
+}
+
+async function accept(kind, blob, ext, seconds) {
+  const prefix = kind === "source" ? "src" : "pr";
+  const status = $(prefix + "-status"), player = $(prefix + "-audio");
+  audio[kind] = null; refresh();
+  try {
+    checkSeconds(kind, seconds);
+    if (blob.size > settings.max_bytes) throw new Error("文件超过 20MB");
+    player.src = URL.createObjectURL(blob); player.hidden = false;
+    say(status, "处理中…");
+    const result = await api(`/api/upload?kind=${kind}&ext=${ext}`, { method: "POST", body: blob });
+    audio[kind] = { id: result.id, seconds, ext };
+    say(status, kind === "source"
+      ? `✓ 录音可用（${fmt(seconds)}）。可以先听一下，不满意就重录；满意就继续第 2 步。`
+      : `✓ 补充录音可用（${seconds.toFixed(1)} 秒），记得在下面写出它的内容。`, "ok");
+  } catch (error) {
+    player.hidden = true;
+    say(status, error.message, "bad");
+  }
+  refresh();
+}
+
+function recorder(kind, button, timeEl, meterEl, limit) {
+  let media = null, chunks = [], started = 0, timer = 0, stream = null, ctx = null;
+  const idle = kind === "source" ? "开始录音" : "录一段", again = kind === "source" ? "重新录音" : "重录这段";
+  const status = () => $(kind === "source" ? "src-status" : "pr-status");
+  async function start() {
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true } }); }
+    catch (error) { say(status(), "无法使用麦克风：" + error.message + "。请在浏览器地址栏允许麦克风权限。", "bad"); return; }
+    ctx = new AudioContext();
+    const analyser = ctx.createAnalyser(); analyser.fftSize = 512;
+    ctx.createMediaStreamSource(stream).connect(analyser);
+    const buf = new Uint8Array(analyser.fftSize);
+    media = new MediaRecorder(stream); chunks = [];
+    media.ondataavailable = (e) => chunks.push(e.data);
+    media.onstop = async () => {
+      stream.getTracks().forEach((t) => t.stop()); await ctx.close(); clearInterval(timer);
+      meterEl.style.width = "0"; button.textContent = again;
+      try { const { blob, seconds } = await toWav(new Blob(chunks, { type: media.mimeType })); await accept(kind, blob, "wav", seconds); }
+      catch (error) { say(status(), "录音处理失败：" + error.message, "bad"); }
+    };
+    media.start(); started = performance.now();
+    button.textContent = "停止录音"; say(status(), "正在录音…说完点“停止录音”。");
+    timer = setInterval(() => {
+      const seconds = (performance.now() - started) / 1000;
+      timeEl.textContent = fmt(seconds);
+      analyser.getByteTimeDomainData(buf);
+      const peak = Math.max(...buf.map((v) => Math.abs(v - 128))) / 128;
+      meterEl.style.width = Math.min(100, peak * 140) + "%";
+      if (seconds >= limit) media.stop();
+    }, 80);
+  }
+  button.textContent = idle;
+  button.addEventListener("click", () => media && media.state === "recording" ? media.stop() : start());
+}
+
+async function fromFile(kind, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const ext = file.name.split(".").pop().toLowerCase();
+  const status = $(kind === "source" ? "src-status" : "pr-status");
+  if (!["mp3", "m4a", "wav"].includes(ext)) { say(status, "只支持 mp3、m4a、wav", "bad"); return; }
+  try { await accept(kind, file, ext, await duration(file)); }
+  catch (error) { say(status, "这个文件打不开：" + error.message, "bad"); }
+}
+
+function previewChars() {
+  return [...$("preview").value.trim()].reduce((n, c) => n + (HAN.test(c) ? 2 : 1), 0);
+}
+
+function refresh() {
+  if (!settings) return;
+  const decided = !$("card3").hidden;
+  $("card1").classList.toggle("locked", decided);
+  $("card2").classList.toggle("locked", !audio.source || decided);
+  if (!$("card3").hidden) step(3); else step(audio.source ? 2 : 1);
+  const id = $("voice-id").value.trim();
+  const idOk = VOICE_ID.test(id), taken = state.voices.some((v) => v.voice_id === id);
+  const hint = $("voice-id-hint");
+  if (!idOk) { hint.className = "hint bad"; hint.textContent = "8～256 位，字母开头，只能有字母、数字、- 和 _，不能以 - 或 _ 结尾。"; }
+  else if (taken) { hint.className = "hint bad"; hint.textContent = "这个 ID 已经用过了，换一个。"; }
+  else { hint.className = "hint"; hint.textContent = "已自动生成，一般不用改。用过的 ID 删除后也不能再用。"; }
+  const text = $("preview").value.trim(), chars = previewChars();
+  const cost = text ? chars / 10000 * settings.models[$("model").value] : 0;
+  const yuan = cost < 0.01 ? "不到 0.01" : cost.toFixed(2);
+  $("what").innerHTML = `<strong>点按钮后会发生什么</strong><ol>
+    <li>把你的录音发给 MiniMax，生成新音色（几十秒内完成）。</li>
+    <li>${text ? `用新音色读一遍上面的句子，就在这个页面上播放。<b>这一步花约 ${yuan} 元</b>。` : "没填试听句子，所以不会试听。"}</li>
+    <li><b>9.9 元音色费现在不扣。</b>以后第一次用这个音色正式配音时才扣，试听不算。</li>
+    <li>不满意就不用管它，7 天内没有正式用过会自动删除，不会再扣钱。</li></ol>`;
+  $("clone").textContent = text ? `生成音色并试听（约 ${yuan} 元）` : "生成音色（不试听）";
+  const promptOk = !audio.prompt || /[。！？!?.，,；;…]$/.test($("pr-text").value.trim());
+  const long = [...text].length > settings.preview_limit;
+  let why = "";
+  if (!$("consent").checked) why = "请先勾选上面的确认。";
+  else if (!idOk || taken) why = "高级选项里的音色 ID 需要修改。";
+  else if (!promptOk) why = "补充录音的文字要以标点结尾（高级选项）。";
+  else if (long) why = `试听句子太长，最多 ${settings.preview_limit} 字。`;
+  $("clone").disabled = busy || !audio.source || Boolean(why);
+  if (!busy && audio.source && $("card3").hidden) say($("clone-status"), why, why ? "hint" : "");
+}
+
+function renderVoices() {
+  const box = $("voices");
+  const live = state.voices.filter((v) => v.status !== "deleted").length;
+  $("library-title").textContent = `已复刻的音色（${live}）`;
+  if (!state.voices.length) { box.innerHTML = '<div class="empty">还没有。</div>'; return; }
+  const status = { cloned: ["已生成", "ok"], uncertain: ["结果未知", "warn"], deleted: ["已删除", "bad"] };
+  box.innerHTML = state.voices.slice().reverse().map((v) => {
+    const [label, cls] = status[v.status] || [v.status, ""];
+    const expiry = v.status === "cloned" ? `没正式用过的话，${new Date(v.delete_if_unused_after).toLocaleDateString()} 后自动删除` : "";
+    const sample = v.preview && v.preview.audio ? `<audio controls src="${audioUrl(v.preview.audio)}"></audio>` : "";
+    return `<div class="voice">
+      <div class="row"><strong>${escape(v.label || v.voice_id)}</strong><code>${escape(v.voice_id)}</code>
+        <span class="badge ${cls}">${label}</span></div>
+      <div class="hint">${escape(new Date(v.created_at).toLocaleString())}${expiry ? " · " + expiry : ""}
+        ${v.input_sensitive ? ' · <span class="warn">试听句子触发了内容安全提示</span>' : ""}
+        ${v.preview && v.preview.error ? ` · <span class="warn">${escape(v.preview.error)}</span>` : ""}
+        ${v.error ? ` · <span class="warn">${escape(v.error)}</span>` : ""}</div>
+      ${sample}
+      ${v.status !== "deleted" ? `<div class="row" style="margin-top:6px"><button data-copy="${escape(v.voice_id)}">复制 ID</button>
+        <button class="danger" data-delete="${escape(v.voice_id)}">立即删除…</button></div>
+      <div data-confirm="${escape(v.voice_id)}" hidden style="margin-top:8px">
+        <div class="hint">删除后不能恢复，这个 ID 也不能再用。不删的话，没正式用过的音色 7 天后也会自动删除。</div>
+        <div class="row" style="margin-top:6px">
+          <input type="text" aria-label="输入音色 ID 确认删除" placeholder="输入 ${escape(v.voice_id)} 确认" style="flex:1">
+          <button class="danger" data-really="${escape(v.voice_id)}">确认删除</button></div>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+function resetForNext() {
+  audio.source = null; audio.prompt = null;
+  ["src-audio", "pr-audio"].forEach((id) => $(id).hidden = true);
+  ["src-file", "pr-file", "pr-text"].forEach((id) => $(id).value = "");
+  say($("src-status"), ""); say($("pr-status"), ""); say($("clone-status"), "");
+  $("src-rec").textContent = "开始录音"; $("src-time").textContent = "0:00";
+  $("consent").checked = false; $("voice-id").value = newVoiceId();
+  $("card3").hidden = true;
+  refresh();
+  $("card1").scrollIntoView({ behavior: "smooth" });
+}
+
+async function finish(message) {
+  await api("/api/finish", { method: "POST" });
+  $("app").innerHTML = `<div class="done"><h1>${escape(message)}</h1><p class="lead">可以关闭这个页面，回到对话里继续。</p></div>`;
+}
+
+async function load() {
+  const data = await api("/api/state");
+  settings = data.settings; state = data;
+  $("library").textContent = settings.library;
+  $("model").innerHTML = Object.entries(settings.models).map(([m, p]) => `<option value="${m}">${m}（${p} 元/万字符）</option>`).join("");
+  $("boost").innerHTML = '<option value="">不选</option>' + settings.language_boost.map((b) => `<option>${b}</option>`).join("");
+  $("voice-id").value = newVoiceId();
+  showScript(); renderVoices(); refresh();
+}
+
+document.querySelectorAll("[data-tab]").forEach((tab) => tab.addEventListener("click", () => {
+  document.querySelectorAll("[data-tab]").forEach((t) => t.setAttribute("aria-selected", t === tab));
+  document.querySelectorAll("[data-panel]").forEach((p) => p.hidden = p.dataset.panel !== tab.dataset.tab);
+}));
+recorder("source", $("src-rec"), $("src-time"), $("src-meter"), 295);
+recorder("prompt", $("pr-rec"), $("pr-time"), $("pr-meter"), 7.5);
+$("script-next").addEventListener("click", () => { scriptIndex = (scriptIndex + 1) % SCRIPTS.length; showScript(); });
+$("src-file").addEventListener("change", () => fromFile("source", $("src-file")));
+$("pr-file").addEventListener("change", () => fromFile("prompt", $("pr-file")));
+$("pr-clear").addEventListener("click", () => { audio.prompt = null; $("pr-audio").hidden = true; $("pr-text").value = ""; $("pr-file").value = ""; say($("pr-status"), ""); refresh(); });
+["voice-id", "preview", "pr-text", "consent", "model"].forEach((id) => ["input", "change"].forEach((e) => $(id).addEventListener(e, refresh)));
+
+$("clone").addEventListener("click", async () => {
+  const status = $("clone-status");
+  busy = true; refresh();
+  say(status, "正在生成音色，通常需要十几秒到一分钟，请不要关闭页面…");
+  try {
+    const entry = await api("/api/clone", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+      voice_id: $("voice-id").value.trim(), label: $("label").value.trim(), consent: $("consent").checked,
+      source_id: audio.source.id, prompt_id: audio.prompt ? audio.prompt.id : null,
+      prompt_text: audio.prompt ? $("pr-text").value.trim() : "",
+      preview_text: $("preview").value.trim(), model: $("model").value,
+      noise_reduction: $("noise").checked, volume_normalization: $("volume").checked,
+      language_boost: $("boost").value || null }) });
+    state.voices.push(entry); state.cloned = [...(state.cloned || []), entry.voice_id];
+    say(status, "");
+    $("card3").hidden = false;
+    $("result-sub").textContent = `“${entry.label || entry.voice_id}”已生成（音色 ID：${entry.voice_id}）。听听像不像你：`;
+    const player = $("demo-audio");
+    if (entry.preview && entry.preview.audio) { player.src = audioUrl(entry.preview.audio); player.hidden = false; say($("result-status"), ""); }
+    else { player.hidden = true; say($("result-status"), entry.preview ? entry.preview.error : "没有填试听句子，所以没有试听音频。", "warn"); }
+    $("card3").scrollIntoView({ behavior: "smooth" });
+  } catch (error) {
+    say(status, (error.uncertain ? "结果未知：" : "没有成功：") + error.message + (error.trace_id ? `（Trace-Id ${error.trace_id}）` : ""), error.uncertain ? "warn" : "bad");
+    if (error.uncertain) state = await api("/api/state");
+  }
+  busy = false;
+  renderVoices(); refresh();
+});
+
+$("keep").addEventListener("click", () => finish("好的，回到对话里继续"));
+$("again").addEventListener("click", resetForNext);
+$("finish").addEventListener("click", () => finish("已结束"));
+
+$("voices").addEventListener("click", async (event) => {
+  const t = event.target;
+  if (t.dataset.copy) { await navigator.clipboard.writeText(t.dataset.copy); t.textContent = "已复制"; setTimeout(() => t.textContent = "复制 ID", 1200); }
+  if (t.dataset.delete) { const box = document.querySelector(`[data-confirm="${CSS.escape(t.dataset.delete)}"]`); box.hidden = !box.hidden; }
+  if (t.dataset.really) {
+    const box = document.querySelector(`[data-confirm="${CSS.escape(t.dataset.really)}"]`);
+    try {
+      await api("/api/delete", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ voice_id: t.dataset.really, confirm: box.querySelector("input").value.trim() }) });
+      state = await api("/api/state"); renderVoices(); refresh();
+    } catch (error) { box.insertAdjacentHTML("beforeend", `<div class="bad">${escape(error.message)}</div>`); }
+  }
+});
+
+$("account").addEventListener("click", async () => {
+  const box = $("account-list");
+  box.innerHTML = '<div class="empty">查询中…</div>';
+  try {
+    const { voices } = await api("/api/account", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+    box.innerHTML = voices.length ? voices.map((v) => `<div class="voice"><code>${escape(v.voice_id)}</code>
+      <span class="hint">${escape(v.created_time || "")} ${escape((v.description || []).join(" "))}</span></div>`).join("")
+      : '<div class="empty">账号里还没有正式用过的复刻音色（只试听过的不会出现在这里）。</div>';
+  } catch (error) { box.innerHTML = `<div class="bad">${escape(error.message)}</div>`; }
+});
+
+// 心跳：页面关闭后服务会在约 3 分钟内自动退出；服务已退出时提示用户。
+setInterval(() => {
+  if (!document.getElementById("finish")) return;
+  api("/api/ping").catch(() => {
+    $("app").innerHTML = '<div class="done"><h1>本地服务已关闭</h1><p class="lead">需要的话，回到对话里让 agent 重新打开。已生成的音色都保存在音色库里。</p></div>';
+  });
+}, 20000);
+
+load().catch((error) => { document.body.innerHTML = `<main><div class="card bad">连不上本地服务：${escape(error.message)}</div></main>`; });
+</script>
+</body>
+</html>
